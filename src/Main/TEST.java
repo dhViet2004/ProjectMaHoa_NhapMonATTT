@@ -15,7 +15,7 @@ public class TEST {
 		nguoi1.khoitao();
 		nguoi2.khoitao();
 		
-		String thongdiepChuoi = "1"; 
+		String thongdiepChuoi = "IUH"; 
 		
 		BigInteger thongdiep = new BigInteger(thongdiepChuoi.getBytes(StandardCharsets.UTF_8));
 		

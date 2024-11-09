@@ -1,7 +1,9 @@
-package RSA;
+package Main;
 
 import java.math.BigInteger;
 import java.util.Scanner;
+
+import ThuatToan.ThuatToanRSA;
 
 public class Main {
     public static void main(String[] args) {

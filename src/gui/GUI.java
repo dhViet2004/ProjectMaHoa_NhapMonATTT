@@ -6,7 +6,7 @@ import javax.swing.JFrame;
 import javax.swing.JPanel;
 import javax.swing.border.EmptyBorder;
 
-import ThuatToan.ThuatToanRSA;
+import ThuatToan.ThuatToanRSA_v2;
 
 import javax.swing.JTabbedPane;
 import javax.swing.JLabel;
@@ -42,8 +42,8 @@ public class GUI extends JFrame {
 	private JTextField txt_N;
 	private JTextField txt_e;
 	private JTextField txt_d;
-	private ThuatToanRSA hocMaHoa;
-	private ThuatToanRSA chuKhoa;
+	private ThuatToanRSA_v2 hocMaHoa;
+	private ThuatToanRSA_v2 chuKhoa;
 	private JEditorPane txt_ThongDiep;
 	private JEditorPane txt_MaHoa;
 	private JTextField txt_pN;
@@ -376,8 +376,8 @@ public class GUI extends JFrame {
 																JButton btn_SinhKhoa = new JButton("Sinh khóa");
 																btn_SinhKhoa.addActionListener(new ActionListener() {
 																	public void actionPerformed(ActionEvent e) {
-																		hocMaHoa = new ThuatToanRSA();
-																		chuKhoa = new ThuatToanRSA();
+																		hocMaHoa = new ThuatToanRSA_v2();
+																		chuKhoa = new ThuatToanRSA_v2();
 																		txt_q.setText(hocMaHoa.getQ().toString());
 																		txt_P.setText(hocMaHoa.getP().toString());
 																		txt_N.setText(hocMaHoa.getN().toString());

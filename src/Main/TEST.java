@@ -3,14 +3,14 @@ package Main;
 import java.math.BigInteger;
 import java.nio.charset.StandardCharsets;
 
-import ThuatToan.ThuatToanRSA;
+import ThuatToan.ThuatToanRSA_v2;
 
 public class TEST {
 
 	public static void main(String[] args) {
 		// TODO Auto-generated method stub
-		ThuatToanRSA nguoi1 = new ThuatToanRSA();
-		ThuatToanRSA nguoi2 = new ThuatToanRSA();	
+		ThuatToanRSA_v2 nguoi1 = new ThuatToanRSA_v2();
+		ThuatToanRSA_v2 nguoi2 = new ThuatToanRSA_v2();	
 		String thongdiepChuoi = "IUH"; 
 		BigInteger thongdiep = new BigInteger(thongdiepChuoi.getBytes(StandardCharsets.UTF_8));
 		

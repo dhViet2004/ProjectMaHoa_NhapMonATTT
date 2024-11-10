@@ -81,7 +81,6 @@ public class Main {
             System.out.println("Vui lòng tạo khóa trước.");
             return;
         }
-
         // Nhập thông điệp đã mã hóa
         System.out.print("Nhập thông điệp mã hóa (dưới dạng BigInteger): ");
         String thongDiepMaHoaChuoi = scanner.nextLine();

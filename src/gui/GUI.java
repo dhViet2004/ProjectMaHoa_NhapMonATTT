@@ -162,7 +162,6 @@ public class GUI extends JFrame {
 					}else if(txt_pN.equals("") &&  txt_e.equals("")) {
 						JOptionPane.showMessageDialog(null, "Vui lòng nhập khóa");
 					}else {
-						hocMaHoa = new ThuatToanRSA();
 						chuoimahoa = hocMaHoa.maHoa(new BigInteger(text.getBytes(StandardCharsets.UTF_8)), new BigInteger(txt_pN.getText()));
 						txt_MaHoa.setText(chuoimahoa.toString());
 					}
@@ -181,7 +180,6 @@ public class GUI extends JFrame {
 							JOptionPane.showMessageDialog(null, "Vui lòng nhập khóa");
 						}
 						else {
-							chuKhoa = new ThuatToanRSA();
 							BigInteger chuoidoi = new BigInteger(text1);
 							BigInteger chuoidagiai = chuKhoa.giaiMa(chuoidoi);
 							String dagiaiChuoi = new String(chuoidagiai.toByteArray(), StandardCharsets.UTF_8);
@@ -239,338 +237,338 @@ public class GUI extends JFrame {
 				    }
 				});
 				
-						btn_DocFIle.setFont(new Font("Tahoma", Font.PLAIN, 20));
-						btn_DocFIle.setBounds(31, 555, 162, 39);
-						pln_RSA.add(btn_DocFIle);
-						
-						JButton btn_Doc_RSA = new JButton("Đọc file");
-						btn_Doc_RSA.addActionListener(new ActionListener() {
-						    public void actionPerformed(ActionEvent e) {
-						        JFileChooser fileChooser = new JFileChooser();
-						        fileChooser.setFileSelectionMode(JFileChooser.FILES_ONLY);
-						        fileChooser.setDialogTitle("Chọn file .rsa để đọc");
+				btn_DocFIle.setFont(new Font("Tahoma", Font.PLAIN, 20));
+				btn_DocFIle.setBounds(31, 555, 162, 39);
+				pln_RSA.add(btn_DocFIle);
+				
+				JButton btn_Doc_RSA = new JButton("Đọc file");
+				btn_Doc_RSA.addActionListener(new ActionListener() {
+				    public void actionPerformed(ActionEvent e) {
+				        JFileChooser fileChooser = new JFileChooser();
+				        fileChooser.setFileSelectionMode(JFileChooser.FILES_ONLY);
+				        fileChooser.setDialogTitle("Chọn file .rsa để đọc");
 
-						        // Chỉ chấp nhận file đuôi .rsa
-						        fileChooser.setFileFilter(new javax.swing.filechooser.FileNameExtensionFilter("RSA Files (*.rsa)", "rsa"));
+				        // Chỉ chấp nhận file đuôi .rsa
+				        fileChooser.setFileFilter(new javax.swing.filechooser.FileNameExtensionFilter("RSA Files (*.rsa)", "rsa"));
 
-						        int result = fileChooser.showOpenDialog(null);
+				        int result = fileChooser.showOpenDialog(null);
 
-						        // Kiểm tra nếu người dùng đã chọn file
-						        if (result == JFileChooser.APPROVE_OPTION) {
-						            File selectedFile = fileChooser.getSelectedFile();
+				        // Kiểm tra nếu người dùng đã chọn file
+				        if (result == JFileChooser.APPROVE_OPTION) {
+				            File selectedFile = fileChooser.getSelectedFile();
 
-						            try (BufferedReader reader = new BufferedReader(new FileReader(selectedFile))) {
-						                StringBuilder content = new StringBuilder();
-						                String line;
+				            try (BufferedReader reader = new BufferedReader(new FileReader(selectedFile))) {
+				                StringBuilder content = new StringBuilder();
+				                String line;
 
-						                // Đọc từng dòng từ file và nối vào biến content
-						                while ((line = reader.readLine()) != null) {
-						                    content.append(line).append("\n");
-						                }
+				                // Đọc từng dòng từ file và nối vào biến content
+				                while ((line = reader.readLine()) != null) {
+				                    content.append(line).append("\n");
+				                }
 
-						                // Hiển thị nội dung trong JTextArea
-						                txt_MaHoa.setText(content.toString());
+				                // Hiển thị nội dung trong JTextArea
+				                txt_MaHoa.setText(content.toString());
 
-						            } catch (IOException ex) {
-						                JOptionPane.showMessageDialog(null, "Lỗi khi đọc file: " + ex.getMessage());
-						            }
-						        }
-						    }
-						});
-						
-										btn_Doc_RSA.setFont(new Font("Tahoma", Font.PLAIN, 20));
-										btn_Doc_RSA.setBounds(610, 555, 162, 39);
-										pln_RSA.add(btn_Doc_RSA);
-										
-										JButton btn_GiaiMa_1_3 = new JButton("Xuất file");
-										btn_GiaiMa_1_3.addActionListener(new ActionListener() {
-										    public void actionPerformed(ActionEvent e) {
-										        JFileChooser fileChooser = new JFileChooser();
-										        fileChooser.setDialogTitle("Lưu file .txt");
-										        
-										        // Chỉ cho phép lưu file đuôi .txt
-										        fileChooser.setFileFilter(new javax.swing.filechooser.FileNameExtensionFilter("Text Files (*.txt)", "txt"));
-										        
-										        int userSelection = fileChooser.showSaveDialog(null);
-										        
-										        // Kiểm tra nếu người dùng chọn lưu file
-										        if (userSelection == JFileChooser.APPROVE_OPTION) {
-										            File fileToSave = fileChooser.getSelectedFile();
-										            
-										            // Đảm bảo file có đuôi .txt
-										            if (!fileToSave.getName().toLowerCase().endsWith(".txt")) {
-										                fileToSave = new File(fileToSave.getAbsolutePath() + ".txt");
-										            }
-										            
-										            try (BufferedWriter writer = new BufferedWriter(new FileWriter(fileToSave))) {
-										                // Lấy nội dung từ JTextArea và ghi vào file
-										                String content = txt_ThongDiep.getText();
-										                writer.write(content);
-										                
-										                JOptionPane.showMessageDialog(null, "File đã được lưu thành công: " + fileToSave.getAbsolutePath());
-										                
-										            } catch (IOException ex) {
-										                JOptionPane.showMessageDialog(null, "Lỗi khi lưu file: " + ex.getMessage());
-										            }
-										        }
-										    }
-										});
-										
-														btn_GiaiMa_1_3.setFont(new Font("Tahoma", Font.PLAIN, 20));
-														btn_GiaiMa_1_3.setBounds(207, 555, 162, 39);
-														pln_RSA.add(btn_GiaiMa_1_3);
-														
-														JButton btn_XuatFileRSA = new JButton("Xuất file");
-														btn_XuatFileRSA.addActionListener(new ActionListener() {
-														    public void actionPerformed(ActionEvent e) {
-														        JFileChooser fileChooser = new JFileChooser();
-														        fileChooser.setDialogTitle("Lưu file .rsa");
-														        
-														        // Chỉ cho phép lưu file đuôi .rsa
-														        fileChooser.setFileFilter(new javax.swing.filechooser.FileNameExtensionFilter("RSA Files (*.rsa)", "rsa"));
-														        
-														        int userSelection = fileChooser.showSaveDialog(null);
-														        
-														        // Kiểm tra nếu người dùng chọn lưu file
-														        if (userSelection == JFileChooser.APPROVE_OPTION) {
-														            File fileToSave = fileChooser.getSelectedFile();
-														            
-														            // Đảm bảo file có đuôi .rsa
-														            if (!fileToSave.getName().toLowerCase().endsWith(".rsa")) {
-														                fileToSave = new File(fileToSave.getAbsolutePath() + ".rsa");
-														            }
-														            
-														            try (BufferedWriter writer = new BufferedWriter(new FileWriter(fileToSave))) {
-														                // Lấy nội dung từ JTextArea và ghi vào file
-														                String content = txt_MaHoa.getText();
-														                writer.write(content);
-														                
-														                JOptionPane.showMessageDialog(null, "File đã được lưu thành công: " + fileToSave.getAbsolutePath());
-														                
-														            } catch (IOException ex) {
-														                JOptionPane.showMessageDialog(null, "Lỗi khi lưu file: " + ex.getMessage());
-														            }
-														        }
-														    }
-														});
-														
-																		btn_XuatFileRSA.setFont(new Font("Tahoma", Font.PLAIN, 20));
-																		btn_XuatFileRSA.setBounds(786, 555, 162, 39);
-																		pln_RSA.add(btn_XuatFileRSA);
-																		
-																		JScrollPane scrollPane = new JScrollPane();
-																		scrollPane.setHorizontalScrollBarPolicy(ScrollPaneConstants.HORIZONTAL_SCROLLBAR_NEVER);
-																		scrollPane.setBounds(31, 338, 338, 207);
-																		pln_RSA.add(scrollPane);
-																		
-																		txt_ThongDiep = new JEditorPane();
-																		scrollPane.setViewportView(txt_ThongDiep);
-																		txt_ThongDiep.setFont(new Font("Tahoma", Font.PLAIN, 15));
-																		
-																		JScrollPane scrollPane_1 = new JScrollPane();
-																		scrollPane_1.setBounds(610, 338, 338, 207);
-																		pln_RSA.add(scrollPane_1);
-																		
-																		txt_MaHoa = new JEditorPane();
-																		scrollPane_1.setViewportView(txt_MaHoa);
-																		txt_MaHoa.setFont(new Font("Tahoma", Font.PLAIN, 15));
-																		
-																		JButton btn_SinhKhoa = new JButton("Sinh khóa");
-																		btn_SinhKhoa.addActionListener(new ActionListener() {
-																			public void actionPerformed(ActionEvent e) {
-																				hocMaHoa = new ThuatToanRSA();
-																				chuKhoa = new ThuatToanRSA();
-																				txt_q.setText(hocMaHoa.getQ().toString());
-																				txt_P.setText(hocMaHoa.getP().toString());
-																				txt_N.setText(hocMaHoa.getN().toString());
-																				txt_e.setText(hocMaHoa.getE().toString());
-																				txt_d.setText(hocMaHoa.getqInv().toString());
-																				txt_pN.setText(hocMaHoa.getPhiN().toString());
-																			}
-																		});
-																		btn_SinhKhoa.setFont(new Font("Tahoma", Font.PLAIN, 15));
-																		btn_SinhKhoa.setBounds(809, 12, 150, 39);
-																		pln_RSA.add(btn_SinhKhoa);
-																		
-																		JButton btn_napKhoaMo = new JButton("Nạp khóa mở");
-																		btn_napKhoaMo.addActionListener(new ActionListener() {
-																		    public void actionPerformed(ActionEvent e) {
-																		        // Mở hộp thoại để người dùng chọn file
-																		        JFileChooser fileChooser = new JFileChooser();
-																		        fileChooser.setDialogTitle("Chọn file khóa công khai");
+				            } catch (IOException ex) {
+				                JOptionPane.showMessageDialog(null, "Lỗi khi đọc file: " + ex.getMessage());
+				            }
+				        }
+				    }
+				});
+				
+								btn_Doc_RSA.setFont(new Font("Tahoma", Font.PLAIN, 20));
+								btn_Doc_RSA.setBounds(610, 555, 162, 39);
+								pln_RSA.add(btn_Doc_RSA);
+								
+								JButton btn_GiaiMa_1_3 = new JButton("Xuất file");
+								btn_GiaiMa_1_3.addActionListener(new ActionListener() {
+								    public void actionPerformed(ActionEvent e) {
+								        JFileChooser fileChooser = new JFileChooser();
+								        fileChooser.setDialogTitle("Lưu file .txt");
+								        
+								        // Chỉ cho phép lưu file đuôi .txt
+								        fileChooser.setFileFilter(new javax.swing.filechooser.FileNameExtensionFilter("Text Files (*.txt)", "txt"));
+								        
+								        int userSelection = fileChooser.showSaveDialog(null);
+								        
+								        // Kiểm tra nếu người dùng chọn lưu file
+								        if (userSelection == JFileChooser.APPROVE_OPTION) {
+								            File fileToSave = fileChooser.getSelectedFile();
+								            
+								            // Đảm bảo file có đuôi .txt
+								            if (!fileToSave.getName().toLowerCase().endsWith(".txt")) {
+								                fileToSave = new File(fileToSave.getAbsolutePath() + ".txt");
+								            }
+								            
+								            try (BufferedWriter writer = new BufferedWriter(new FileWriter(fileToSave))) {
+								                // Lấy nội dung từ JTextArea và ghi vào file
+								                String content = txt_ThongDiep.getText();
+								                writer.write(content);
+								                
+								                JOptionPane.showMessageDialog(null, "File đã được lưu thành công: " + fileToSave.getAbsolutePath());
+								                
+								            } catch (IOException ex) {
+								                JOptionPane.showMessageDialog(null, "Lỗi khi lưu file: " + ex.getMessage());
+								            }
+								        }
+								    }
+								});
+								
+												btn_GiaiMa_1_3.setFont(new Font("Tahoma", Font.PLAIN, 20));
+												btn_GiaiMa_1_3.setBounds(207, 555, 162, 39);
+												pln_RSA.add(btn_GiaiMa_1_3);
+												
+												JButton btn_XuatFileRSA = new JButton("Xuất file");
+												btn_XuatFileRSA.addActionListener(new ActionListener() {
+												    public void actionPerformed(ActionEvent e) {
+												        JFileChooser fileChooser = new JFileChooser();
+												        fileChooser.setDialogTitle("Lưu file .rsa");
+												        
+												        // Chỉ cho phép lưu file đuôi .rsa
+												        fileChooser.setFileFilter(new javax.swing.filechooser.FileNameExtensionFilter("RSA Files (*.rsa)", "rsa"));
+												        
+												        int userSelection = fileChooser.showSaveDialog(null);
+												        
+												        // Kiểm tra nếu người dùng chọn lưu file
+												        if (userSelection == JFileChooser.APPROVE_OPTION) {
+												            File fileToSave = fileChooser.getSelectedFile();
+												            
+												            // Đảm bảo file có đuôi .rsa
+												            if (!fileToSave.getName().toLowerCase().endsWith(".rsa")) {
+												                fileToSave = new File(fileToSave.getAbsolutePath() + ".rsa");
+												            }
+												            
+												            try (BufferedWriter writer = new BufferedWriter(new FileWriter(fileToSave))) {
+												                // Lấy nội dung từ JTextArea và ghi vào file
+												                String content = txt_MaHoa.getText();
+												                writer.write(content);
+												                
+												                JOptionPane.showMessageDialog(null, "File đã được lưu thành công: " + fileToSave.getAbsolutePath());
+												                
+												            } catch (IOException ex) {
+												                JOptionPane.showMessageDialog(null, "Lỗi khi lưu file: " + ex.getMessage());
+												            }
+												        }
+												    }
+												});
+												
+																btn_XuatFileRSA.setFont(new Font("Tahoma", Font.PLAIN, 20));
+																btn_XuatFileRSA.setBounds(786, 555, 162, 39);
+																pln_RSA.add(btn_XuatFileRSA);
+																
+																JScrollPane scrollPane = new JScrollPane();
+																scrollPane.setHorizontalScrollBarPolicy(ScrollPaneConstants.HORIZONTAL_SCROLLBAR_NEVER);
+																scrollPane.setBounds(31, 338, 338, 207);
+																pln_RSA.add(scrollPane);
+																
+																txt_ThongDiep = new JEditorPane();
+																scrollPane.setViewportView(txt_ThongDiep);
+																txt_ThongDiep.setFont(new Font("Tahoma", Font.PLAIN, 15));
+																
+																JScrollPane scrollPane_1 = new JScrollPane();
+																scrollPane_1.setBounds(610, 338, 338, 207);
+																pln_RSA.add(scrollPane_1);
+																
+																txt_MaHoa = new JEditorPane();
+																scrollPane_1.setViewportView(txt_MaHoa);
+																txt_MaHoa.setFont(new Font("Tahoma", Font.PLAIN, 15));
+																
+																JButton btn_SinhKhoa = new JButton("Sinh khóa");
+																btn_SinhKhoa.addActionListener(new ActionListener() {
+																	public void actionPerformed(ActionEvent e) {
+																		hocMaHoa = new ThuatToanRSA();
+																		chuKhoa = new ThuatToanRSA();
+																		txt_q.setText(hocMaHoa.getQ().toString());
+																		txt_P.setText(hocMaHoa.getP().toString());
+																		txt_N.setText(hocMaHoa.getN().toString());
+																		txt_e.setText(hocMaHoa.getE().toString());
+																		txt_d.setText(hocMaHoa.getqInv().toString());
+																		txt_pN.setText(hocMaHoa.getPhiN().toString());
+																	}
+																});
+																btn_SinhKhoa.setFont(new Font("Tahoma", Font.PLAIN, 15));
+																btn_SinhKhoa.setBounds(809, 12, 150, 39);
+																pln_RSA.add(btn_SinhKhoa);
+																
+																JButton btn_napKhoaMo = new JButton("Nạp khóa mở");
+																btn_napKhoaMo.addActionListener(new ActionListener() {
+																    public void actionPerformed(ActionEvent e) {
+																        // Mở hộp thoại để người dùng chọn file
+																        JFileChooser fileChooser = new JFileChooser();
+																        fileChooser.setDialogTitle("Chọn file khóa công khai");
 
-																		        // Chỉ cho phép chọn file .txt
-																		        fileChooser.setFileFilter(new javax.swing.filechooser.FileNameExtensionFilter("Text Files (*.txt)", "txt"));
+																        // Chỉ cho phép chọn file .txt
+																        fileChooser.setFileFilter(new javax.swing.filechooser.FileNameExtensionFilter("Text Files (*.txt)", "txt"));
 
-																		        int userSelection = fileChooser.showOpenDialog(null);
+																        int userSelection = fileChooser.showOpenDialog(null);
 
-																		        // Kiểm tra nếu người dùng chọn file
-																		        if (userSelection == JFileChooser.APPROVE_OPTION) {
-																		            File fileToOpen = fileChooser.getSelectedFile();
+																        // Kiểm tra nếu người dùng chọn file
+																        if (userSelection == JFileChooser.APPROVE_OPTION) {
+																            File fileToOpen = fileChooser.getSelectedFile();
 
-																		            try (BufferedReader reader = new BufferedReader(new FileReader(fileToOpen))) {
-																		                // Đọc nội dung của file
-																		                String line;
-																		                String nValue = "", eValue = "";
+																            try (BufferedReader reader = new BufferedReader(new FileReader(fileToOpen))) {
+																                // Đọc nội dung của file
+																                String line;
+																                String nValue = "", eValue = "";
 
-																		                while ((line = reader.readLine()) != null) {
-																		                    if (line.startsWith("N:")) {
-																		                        nValue = line.substring(2).trim(); // Lấy giá trị N
-																		                    } else if (line.startsWith("e:")) {
-																		                        eValue = line.substring(2).trim(); // Lấy giá trị e
-																		                    }
-																		                }
+																                while ((line = reader.readLine()) != null) {
+																                    if (line.startsWith("N:")) {
+																                        nValue = line.substring(2).trim(); // Lấy giá trị N
+																                    } else if (line.startsWith("e:")) {
+																                        eValue = line.substring(2).trim(); // Lấy giá trị e
+																                    }
+																                }
 
-																		                // Cập nhật giá trị N và e vào các text field
-																		                txt_pN.setText(nValue);
-																		                txt_e.setText(eValue);
+																                // Cập nhật giá trị N và e vào các text field
+																                txt_pN.setText(nValue);
+																                txt_e.setText(eValue);
 
-																		                JOptionPane.showMessageDialog(null, "Khóa công khai đã được nạp thành công!");
-																		            } catch (IOException ex) {
-																		                JOptionPane.showMessageDialog(null, "Lỗi khi đọc file khóa công khai: " + ex.getMessage());
-																		            }
-																		        }
-																		    }
-																		});
-																		btn_napKhoaMo.setFont(new Font("Tahoma", Font.PLAIN, 15));
-																		btn_napKhoaMo.setBounds(809, 68, 150, 39);
-																		pln_RSA.add(btn_napKhoaMo);
-																		
-																		JButton btn_XuatkhoaMo = new JButton("Lưu khóa mở");
-																		btn_XuatkhoaMo.addActionListener(new ActionListener() {
-																		    public void actionPerformed(ActionEvent e) {
-																		        // Lưu khóa công khai
-																		        JFileChooser fileChooser = new JFileChooser();
-																		        fileChooser.setDialogTitle("Lưu khóa công khai");
+																                JOptionPane.showMessageDialog(null, "Khóa công khai đã được nạp thành công!");
+																            } catch (IOException ex) {
+																                JOptionPane.showMessageDialog(null, "Lỗi khi đọc file khóa công khai: " + ex.getMessage());
+																            }
+																        }
+																    }
+																});
+																btn_napKhoaMo.setFont(new Font("Tahoma", Font.PLAIN, 15));
+																btn_napKhoaMo.setBounds(809, 68, 150, 39);
+																pln_RSA.add(btn_napKhoaMo);
+																
+																JButton btn_XuatkhoaMo = new JButton("Lưu khóa mở");
+																btn_XuatkhoaMo.addActionListener(new ActionListener() {
+																    public void actionPerformed(ActionEvent e) {
+																        // Lưu khóa công khai
+																        JFileChooser fileChooser = new JFileChooser();
+																        fileChooser.setDialogTitle("Lưu khóa công khai");
 
-																		        // Chỉ cho phép lưu file đuôi .txt
-																		        fileChooser.setFileFilter(new javax.swing.filechooser.FileNameExtensionFilter("Text Files (*.txt)", "txt"));
+																        // Chỉ cho phép lưu file đuôi .txt
+																        fileChooser.setFileFilter(new javax.swing.filechooser.FileNameExtensionFilter("Text Files (*.txt)", "txt"));
 
-																		        int userSelection = fileChooser.showSaveDialog(null);
+																        int userSelection = fileChooser.showSaveDialog(null);
 
-																		        // Kiểm tra nếu người dùng chọn lưu file
-																		        if (userSelection == JFileChooser.APPROVE_OPTION) {
-																		            File fileToSave = fileChooser.getSelectedFile();
+																        // Kiểm tra nếu người dùng chọn lưu file
+																        if (userSelection == JFileChooser.APPROVE_OPTION) {
+																            File fileToSave = fileChooser.getSelectedFile();
 
-																		            // Đảm bảo file có đuôi .txt
-																		            if (!fileToSave.getName().toLowerCase().endsWith(".txt")) {
-																		                fileToSave = new File(fileToSave.getAbsolutePath() + ".txt");
-																		            }
+																            // Đảm bảo file có đuôi .txt
+																            if (!fileToSave.getName().toLowerCase().endsWith(".txt")) {
+																                fileToSave = new File(fileToSave.getAbsolutePath() + ".txt");
+																            }
 
-																		            try (BufferedWriter writer = new BufferedWriter(new FileWriter(fileToSave))) {
-																		                // Ghi giá trị N và e vào file
-																		                String publicKey = "N: " + txt_pN.getText() + "\ne: " + txt_e.getText();
-																		                writer.write(publicKey);
-																		                JOptionPane.showMessageDialog(null, "Khóa công khai đã được lưu thành công: " + fileToSave.getAbsolutePath());
-																		            } catch (IOException ex) {
-																		                JOptionPane.showMessageDialog(null, "Lỗi khi lưu khóa công khai: " + ex.getMessage());
-																		            }
-																		        }
-																		    }
-																		});
-																		btn_XuatkhoaMo.setFont(new Font("Tahoma", Font.PLAIN, 15));
-																		btn_XuatkhoaMo.setBounds(809, 111, 150, 39);
-																		pln_RSA.add(btn_XuatkhoaMo);
-																		
-																		JButton btn_napKhoaKin = new JButton("Nạp khóa kín");
-																		btn_napKhoaKin.addActionListener(new ActionListener() {
-																		    public void actionPerformed(ActionEvent e) {
-																		        // Mở hộp thoại để người dùng chọn file chứa khóa kín
-																		        JFileChooser fileChooser = new JFileChooser();
-																		        fileChooser.setDialogTitle("Chọn file chứa khóa kín");
-																		        int userSelection = fileChooser.showOpenDialog(null);
+																            try (BufferedWriter writer = new BufferedWriter(new FileWriter(fileToSave))) {
+																                // Ghi giá trị N và e vào file
+																                String publicKey = "N: " + txt_pN.getText() + "\ne: " + txt_e.getText();
+																                writer.write(publicKey);
+																                JOptionPane.showMessageDialog(null, "Khóa công khai đã được lưu thành công: " + fileToSave.getAbsolutePath());
+																            } catch (IOException ex) {
+																                JOptionPane.showMessageDialog(null, "Lỗi khi lưu khóa công khai: " + ex.getMessage());
+																            }
+																        }
+																    }
+																});
+																btn_XuatkhoaMo.setFont(new Font("Tahoma", Font.PLAIN, 15));
+																btn_XuatkhoaMo.setBounds(809, 111, 150, 39);
+																pln_RSA.add(btn_XuatkhoaMo);
+																
+																JButton btn_napKhoaKin = new JButton("Nạp khóa kín");
+																btn_napKhoaKin.addActionListener(new ActionListener() {
+																    public void actionPerformed(ActionEvent e) {
+																        // Mở hộp thoại để người dùng chọn file chứa khóa kín
+																        JFileChooser fileChooser = new JFileChooser();
+																        fileChooser.setDialogTitle("Chọn file chứa khóa kín");
+																        int userSelection = fileChooser.showOpenDialog(null);
 
-																		        // Kiểm tra nếu người dùng chọn file
-																		        if (userSelection == JFileChooser.APPROVE_OPTION) {
-																		            File fileToOpen = fileChooser.getSelectedFile();
+																        // Kiểm tra nếu người dùng chọn file
+																        if (userSelection == JFileChooser.APPROVE_OPTION) {
+																            File fileToOpen = fileChooser.getSelectedFile();
 
-																		            try (BufferedReader reader = new BufferedReader(new FileReader(fileToOpen))) {
-																		                String line;
-																		                String dValue = "";
-																		                String nValue = "";
+																            try (BufferedReader reader = new BufferedReader(new FileReader(fileToOpen))) {
+																                String line;
+																                String dValue = "";
+																                String nValue = "";
 
-																		                // Đọc các dòng trong file
-																		                while ((line = reader.readLine()) != null) {
-																		                    if (line.startsWith("d:")) {
-																		                        dValue = line.substring(2).trim();  // Lấy giá trị sau "d:"
-																		                    } else if (line.startsWith("n:")) {
-																		                        nValue = line.substring(2).trim();  // Lấy giá trị sau "n:"
-																		                    }
-																		                }
+																                // Đọc các dòng trong file
+																                while ((line = reader.readLine()) != null) {
+																                    if (line.startsWith("d:")) {
+																                        dValue = line.substring(2).trim();  // Lấy giá trị sau "d:"
+																                    } else if (line.startsWith("n:")) {
+																                        nValue = line.substring(2).trim();  // Lấy giá trị sau "n:"
+																                    }
+																                }
 
-																		                // Kiểm tra và hiển thị thông báo nếu không tìm thấy giá trị d và n
-																		                if (!dValue.isEmpty() && !nValue.isEmpty()) {
-																		                    // Cập nhật các trường txt_d và txt_n
-																		                    txt_d.setText(dValue);
-																		                    txt_N.setText(nValue);
+																                // Kiểm tra và hiển thị thông báo nếu không tìm thấy giá trị d và n
+																                if (!dValue.isEmpty() && !nValue.isEmpty()) {
+																                    // Cập nhật các trường txt_d và txt_n
+																                    txt_d.setText(dValue);
+																                    txt_N.setText(nValue);
 
-																		                    // Thông báo nạp thành công
-																		                    JOptionPane.showMessageDialog(null, "Khóa kín đã được nạp thành công!");
-																		                } else {
-																		                    JOptionPane.showMessageDialog(null, "Không tìm thấy khóa kín trong file.");
-																		                }
-																		            } catch (IOException ex) {
-																		                JOptionPane.showMessageDialog(null, "Lỗi khi đọc file khóa kín: " + ex.getMessage());
-																		            }
-																		        }
-																		    }
-																		});
-																		btn_napKhoaKin.setFont(new Font("Tahoma", Font.PLAIN, 15));
-																		btn_napKhoaKin.setBounds(809, 166, 150, 39);
-																		pln_RSA.add(btn_napKhoaKin);
-																		
-																		JButton btn_XuatkhoaKin = new JButton("Lưu khóa kín");
-																		btn_XuatkhoaKin.addActionListener(new ActionListener() {
-																		    public void actionPerformed(ActionEvent e) {
-																		        // Mở hộp thoại để người dùng chọn nơi lưu file
-																		        JFileChooser fileChooser = new JFileChooser();
-																		        fileChooser.setDialogTitle("Chọn nơi lưu khóa kín");
-																		        int userSelection = fileChooser.showSaveDialog(null);
+																                    // Thông báo nạp thành công
+																                    JOptionPane.showMessageDialog(null, "Khóa kín đã được nạp thành công!");
+																                } else {
+																                    JOptionPane.showMessageDialog(null, "Không tìm thấy khóa kín trong file.");
+																                }
+																            } catch (IOException ex) {
+																                JOptionPane.showMessageDialog(null, "Lỗi khi đọc file khóa kín: " + ex.getMessage());
+																            }
+																        }
+																    }
+																});
+																btn_napKhoaKin.setFont(new Font("Tahoma", Font.PLAIN, 15));
+																btn_napKhoaKin.setBounds(809, 166, 150, 39);
+																pln_RSA.add(btn_napKhoaKin);
+																
+																JButton btn_XuatkhoaKin = new JButton("Lưu khóa kín");
+																btn_XuatkhoaKin.addActionListener(new ActionListener() {
+																    public void actionPerformed(ActionEvent e) {
+																        // Mở hộp thoại để người dùng chọn nơi lưu file
+																        JFileChooser fileChooser = new JFileChooser();
+																        fileChooser.setDialogTitle("Chọn nơi lưu khóa kín");
+																        int userSelection = fileChooser.showSaveDialog(null);
 
-																		        // Kiểm tra nếu người dùng chọn file
-																		        if (userSelection == JFileChooser.APPROVE_OPTION) {
-																		            File fileToSave = fileChooser.getSelectedFile();
+																        // Kiểm tra nếu người dùng chọn file
+																        if (userSelection == JFileChooser.APPROVE_OPTION) {
+																            File fileToSave = fileChooser.getSelectedFile();
 
-																		            // Nếu file không có đuôi .txt, thêm đuôi .txt
-																		            if (!fileToSave.getAbsolutePath().endsWith(".txt")) {
-																		                fileToSave = new File(fileToSave.getAbsolutePath() + ".txt");
-																		            }
+																            // Nếu file không có đuôi .txt, thêm đuôi .txt
+																            if (!fileToSave.getAbsolutePath().endsWith(".txt")) {
+																                fileToSave = new File(fileToSave.getAbsolutePath() + ".txt");
+																            }
 
-																		            try (BufferedWriter writer = new BufferedWriter(new FileWriter(fileToSave))) {
-																		                // Lấy giá trị khóa kín từ các trường nhập liệu
-																		                String dValue = txt_d.getText().trim();
-																		                String nValue = txt_N.getText().trim();
+																            try (BufferedWriter writer = new BufferedWriter(new FileWriter(fileToSave))) {
+																                // Lấy giá trị khóa kín từ các trường nhập liệu
+																                String dValue = txt_d.getText().trim();
+																                String nValue = txt_N.getText().trim();
 
-																		                // Ghi các giá trị khóa kín vào file
-																		                writer.write("d: " + dValue);
-																		                writer.newLine(); // Xuống dòng
-																		                writer.write("n: " + nValue);
+																                // Ghi các giá trị khóa kín vào file
+																                writer.write("d: " + dValue);
+																                writer.newLine(); // Xuống dòng
+																                writer.write("n: " + nValue);
 
-																		                // Thông báo lưu thành công
-																		                JOptionPane.showMessageDialog(null, "Khóa kín đã được lưu thành công!");
-																		            } catch (IOException ex) {
-																		                JOptionPane.showMessageDialog(null, "Lỗi khi lưu khóa kín: " + ex.getMessage());
-																		            }
-																		        }
-																		    }
-																		});
-																		btn_XuatkhoaKin.setFont(new Font("Tahoma", Font.PLAIN, 15));
-																		btn_XuatkhoaKin.setBounds(809, 210, 150, 39);
-																		pln_RSA.add(btn_XuatkhoaKin);
-																		
-																		JLabel lblN = new JLabel("pN:");
-																		lblN.setFont(new Font("Tahoma", Font.BOLD, 20));
-																		lblN.setBounds(207, 259, 44, 26);
-																		pln_RSA.add(lblN);
-																		
-																		txt_pN = new JTextField();
-																		txt_pN.setFont(new Font("Tahoma", Font.PLAIN, 10));
-																		txt_pN.setColumns(10);
-																		txt_pN.setBounds(254, 248, 528, 31);
-																		pln_RSA.add(txt_pN);
-																		
-																		JPanel pnl_AES = new JPanel();
-																		tabbedPane.addTab("AES", null, pnl_AES, null);
-																		pnl_AES.setLayout(null);
+																                // Thông báo lưu thành công
+																                JOptionPane.showMessageDialog(null, "Khóa kín đã được lưu thành công!");
+																            } catch (IOException ex) {
+																                JOptionPane.showMessageDialog(null, "Lỗi khi lưu khóa kín: " + ex.getMessage());
+																            }
+																        }
+																    }
+																});
+																btn_XuatkhoaKin.setFont(new Font("Tahoma", Font.PLAIN, 15));
+																btn_XuatkhoaKin.setBounds(809, 210, 150, 39);
+																pln_RSA.add(btn_XuatkhoaKin);
+																
+																JLabel lblN = new JLabel("pN:");
+																lblN.setFont(new Font("Tahoma", Font.BOLD, 20));
+																lblN.setBounds(207, 259, 44, 26);
+																pln_RSA.add(lblN);
+																
+																txt_pN = new JTextField();
+																txt_pN.setFont(new Font("Tahoma", Font.PLAIN, 10));
+																txt_pN.setColumns(10);
+																txt_pN.setBounds(254, 248, 528, 31);
+																pln_RSA.add(txt_pN);
+																
+																JPanel pnl_AES = new JPanel();
+																tabbedPane.addTab("AES", null, pnl_AES, null);
+																pnl_AES.setLayout(null);
 	}
 }

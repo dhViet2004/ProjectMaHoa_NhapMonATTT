@@ -255,5 +255,55 @@ public class GUI_MaHoa extends JFrame {
 				JPanel pnl_AES = new JPanel();
 				tabbedPane.addTab("AES", null, pnl_AES, null);
 				pnl_AES.setLayout(null);
+				
+				JLabel lblNewLabel_1 = new JLabel("Thông điệp:");
+				lblNewLabel_1.setFont(new Font("Tahoma", Font.BOLD, 20));
+				lblNewLabel_1.setBounds(49, 24, 126, 38);
+				pnl_AES.add(lblNewLabel_1);
+				
+				JEditorPane editorPane = new JEditorPane();
+				editorPane.setFont(new Font("Tahoma", Font.PLAIN, 15));
+				editorPane.setBounds(185, 24, 240, 188);
+				pnl_AES.add(editorPane);
+				
+				JEditorPane editorPane_1 = new JEditorPane();
+				editorPane_1.setFont(new Font("Tahoma", Font.PLAIN, 15));
+				editorPane_1.setBounds(689, 24, 240, 188);
+				pnl_AES.add(editorPane_1);
+				
+				JLabel lblNewLabel_1_1 = new JLabel("Khóa:");
+				lblNewLabel_1_1.setFont(new Font("Tahoma", Font.BOLD, 20));
+				lblNewLabel_1_1.setBounds(552, 24, 126, 38);
+				pnl_AES.add(lblNewLabel_1_1);
+				
+				JButton btnNewButton = new JButton("Mã hóa");
+				btnNewButton.setFont(new Font("Tahoma", Font.PLAIN, 20));
+				btnNewButton.setBounds(310, 248, 116, 47);
+				pnl_AES.add(btnNewButton);
+				
+				JButton btnGiiM = new JButton("Giải mã");
+				btnGiiM.setFont(new Font("Tahoma", Font.PLAIN, 20));
+				btnGiiM.setBounds(813, 248, 116, 47);
+				pnl_AES.add(btnGiiM);
+				
+				JEditorPane editorPane_2 = new JEditorPane();
+				editorPane_2.setFont(new Font("Tahoma", Font.PLAIN, 15));
+				editorPane_2.setBounds(71, 361, 357, 190);
+				pnl_AES.add(editorPane_2);
+				
+				JEditorPane editorPane_2_1 = new JEditorPane();
+				editorPane_2_1.setFont(new Font("Tahoma", Font.PLAIN, 15));
+				editorPane_2_1.setBounds(572, 361, 357, 190);
+				pnl_AES.add(editorPane_2_1);
+				
+				JLabel lblNewLabel_1_2 = new JLabel("Văn bản được mã hóa:");
+				lblNewLabel_1_2.setFont(new Font("Tahoma", Font.BOLD, 20));
+				lblNewLabel_1_2.setBounds(71, 313, 228, 38);
+				pnl_AES.add(lblNewLabel_1_2);
+				
+				JLabel lblNewLabel_1_3 = new JLabel("Văn bản được giải mã:");
+				lblNewLabel_1_3.setFont(new Font("Tahoma", Font.BOLD, 20));
+				lblNewLabel_1_3.setBounds(574, 313, 231, 38);
+				pnl_AES.add(lblNewLabel_1_3);
 	}
 }

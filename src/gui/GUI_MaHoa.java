@@ -1,11 +1,15 @@
 package gui;
 
+import java.awt.BorderLayout;
+import java.awt.Color;
+import java.awt.Dimension;
 import java.awt.EventQueue;
 
 import javax.swing.JFrame;
 import javax.swing.JPanel;
 import javax.swing.border.EmptyBorder;
 
+import ThuatToan.AES;
 import ThuatToan.ThuatToanRSA_v2;
 
 import javax.swing.JTabbedPane;
@@ -13,11 +17,15 @@ import javax.swing.JLabel;
 import javax.swing.JOptionPane;
 
 import java.awt.Font;
+import java.awt.Label;
+import java.awt.Window;
+
 import javax.swing.JTextField;
 import javax.swing.JTextArea;
 import javax.swing.JTextPane;
 import javax.swing.JEditorPane;
 import javax.swing.JFileChooser;
+import javax.swing.BorderFactory;
 import javax.swing.JButton;
 import javax.swing.border.BevelBorder;
 import java.awt.event.ActionListener;
@@ -29,6 +37,7 @@ import java.io.FileWriter;
 import java.io.IOException;
 import java.math.BigInteger;
 import java.nio.charset.StandardCharsets;
+import java.util.Base64;
 import java.awt.event.ActionEvent;
 import javax.swing.JScrollPane;
 import javax.swing.ScrollPaneConstants;
@@ -48,6 +57,21 @@ public class GUI_MaHoa extends JFrame {
 	private JEditorPane txt_MaHoa;
 	private JTextField txt_pN;
 	private BigInteger chuoimahoa;
+	
+	
+	private JLabel lblTextInput;
+	private JTextField txtInputText;
+	private JLabel lblKeyInput;
+	private JTextField txtInputKey;
+	private JButton btnEncrypt;
+	private JButton btnDecrypt;
+	private JTextArea txtAEncypt;
+	private JLabel lblEncrypt;
+	private JLabel lblDecrypt;
+	private JTextArea txtADecrypt;
+	private byte[] encrypt;
+	private byte[] decrypt;
+	
 	/**
 	 * Launch the application.
 	 */
@@ -253,57 +277,142 @@ public class GUI_MaHoa extends JFrame {
 				pln_RSA.add(txt_pN);
 				
 				JPanel pnl_AES = new JPanel();
+				
+				pnl_AES.add(panelCenter1());
+				btnEncrypt.addActionListener(e -> xuLyMAHoa());
+				btnDecrypt.addActionListener(e -> xuLyGiaiMa());
 				tabbedPane.addTab("AES", null, pnl_AES, null);
 				pnl_AES.setLayout(null);
-				
-				JLabel lblNewLabel_1 = new JLabel("Thông điệp:");
-				lblNewLabel_1.setFont(new Font("Tahoma", Font.BOLD, 20));
-				lblNewLabel_1.setBounds(49, 24, 126, 38);
-				pnl_AES.add(lblNewLabel_1);
-				
-				JEditorPane editorPane = new JEditorPane();
-				editorPane.setFont(new Font("Tahoma", Font.PLAIN, 15));
-				editorPane.setBounds(185, 24, 240, 188);
-				pnl_AES.add(editorPane);
-				
-				JEditorPane editorPane_1 = new JEditorPane();
-				editorPane_1.setFont(new Font("Tahoma", Font.PLAIN, 15));
-				editorPane_1.setBounds(689, 24, 240, 188);
-				pnl_AES.add(editorPane_1);
-				
-				JLabel lblNewLabel_1_1 = new JLabel("Khóa:");
-				lblNewLabel_1_1.setFont(new Font("Tahoma", Font.BOLD, 20));
-				lblNewLabel_1_1.setBounds(552, 24, 126, 38);
-				pnl_AES.add(lblNewLabel_1_1);
-				
-				JButton btnNewButton = new JButton("Mã hóa");
-				btnNewButton.setFont(new Font("Tahoma", Font.PLAIN, 20));
-				btnNewButton.setBounds(310, 248, 116, 47);
-				pnl_AES.add(btnNewButton);
-				
-				JButton btnGiiM = new JButton("Giải mã");
-				btnGiiM.setFont(new Font("Tahoma", Font.PLAIN, 20));
-				btnGiiM.setBounds(813, 248, 116, 47);
-				pnl_AES.add(btnGiiM);
-				
-				JEditorPane editorPane_2 = new JEditorPane();
-				editorPane_2.setFont(new Font("Tahoma", Font.PLAIN, 15));
-				editorPane_2.setBounds(71, 361, 357, 190);
-				pnl_AES.add(editorPane_2);
-				
-				JEditorPane editorPane_2_1 = new JEditorPane();
-				editorPane_2_1.setFont(new Font("Tahoma", Font.PLAIN, 15));
-				editorPane_2_1.setBounds(572, 361, 357, 190);
-				pnl_AES.add(editorPane_2_1);
-				
-				JLabel lblNewLabel_1_2 = new JLabel("Văn bản được mã hóa:");
-				lblNewLabel_1_2.setFont(new Font("Tahoma", Font.BOLD, 20));
-				lblNewLabel_1_2.setBounds(71, 313, 228, 38);
-				pnl_AES.add(lblNewLabel_1_2);
-				
-				JLabel lblNewLabel_1_3 = new JLabel("Văn bản được giải mã:");
-				lblNewLabel_1_3.setFont(new Font("Tahoma", Font.BOLD, 20));
-				lblNewLabel_1_3.setBounds(574, 313, 231, 38);
-				pnl_AES.add(lblNewLabel_1_3);
+	}
+	public JPanel panelCenter1(){	
+		JPanel panelCenter = new JPanel();
+		panelCenter.setBounds(90, 51, 808, 467);
+		java.awt.Dimension dms = new Dimension(100, 30);
+		lblTextInput = new JLabel("Thông điệp: ");
+		lblTextInput.setFont(new Font("Arial", Font.BOLD, 15));
+		txtInputText = new JTextField();
+		txtInputText.setPreferredSize(dms);
+		lblKeyInput = new JLabel("Khóa:");
+		lblKeyInput.setFont(new Font("Arial", Font.BOLD, 15));
+		txtInputKey = new JTextField();
+		txtInputKey.setPreferredSize(dms);
+		lblEncrypt = new JLabel("Văn bản mã hóa:");
+		lblEncrypt.setFont(new Font("Arial", Font.BOLD, 15));
+		txtAEncypt = new JTextArea(10, 10);
+		txtAEncypt.setBorder(BorderFactory.createLineBorder(Color.BLACK));
+		txtAEncypt.setLineWrap(true);
+		lblDecrypt = new JLabel("Văn bản được giải mã:");
+		lblDecrypt.setFont(new Font("Arial", Font.BOLD, 15));
+		txtADecrypt = new JTextArea(10, 18);
+		txtADecrypt.setBorder(BorderFactory.createLineBorder(Color.BLACK));
+		txtADecrypt.setLineWrap(true);
+		btnEncrypt = new JButton("Mã hóa");
+		btnEncrypt.setFont(new Font("Arial", Font.BOLD, 15));
+		btnDecrypt = new JButton("Giải mã");
+		btnDecrypt.setFont(new Font("Arial", Font.BOLD, 15));
+		panelCenter.setBackground(new Color(240, 240, 240));
+		panelCenter.setLayout(null);
+
+		// text input and key input
+		lblTextInput.setBounds(10, 48, 100, 30);
+		txtInputText.setBounds(100, 50, 280, 30);
+		lblKeyInput.setBounds(420, 50, 100, 30);
+		txtInputKey.setBounds(500, 50, 280, 30);
+		panelCenter.add(lblTextInput);
+		panelCenter.add(txtInputText);
+		panelCenter.add(lblKeyInput);
+		panelCenter.add(txtInputKey);
+
+		// encrypt and decrypt button
+		btnEncrypt.setBounds(260, 100, 120, 30);
+		btnDecrypt.setBounds(660, 100, 120, 30);
+		panelCenter.add(btnEncrypt);
+		panelCenter.add(btnDecrypt);
+
+		// encrypt text
+		lblEncrypt.setBounds(20, 150, 150, 30);
+		txtAEncypt.setBounds(20, 180, 360, 180);
+		panelCenter.add(lblEncrypt);
+		panelCenter.add(txtAEncypt);
+
+		// decrypt text
+		lblDecrypt.setBounds(420, 150, 173, 30);
+		txtADecrypt.setBounds(420, 180, 360, 180);
+		panelCenter.add(lblDecrypt);
+		panelCenter.add(txtADecrypt);
+
+		
+		return panelCenter;
+
+	}
+	private void xuLyReset() {
+		txtInputText.setText("");
+		txtInputKey.setText("");
+		txtAEncypt.setText("");
+		txtADecrypt.setText("");
+		txtInputText.requestFocus();
+	}
+
+	// Hàm xử lý khi nhấn nút mã hóa
+	private void xuLyMAHoa() {
+		// Lấy văn bản rõ và khóa từ frame
+		String explainText = txtInputText.getText();
+		String k = new String(txtInputKey.getText());
+
+		// Kiem tra khoa
+		if (k.equals("")) {
+			JOptionPane.showMessageDialog(null, "Vui lòng nhập khóa!");
+		} else if (k.length() != 16) {
+			k = addKey(k);
+			// Mã hóa văn bản rõ
+			encrypt = AES.encrypt(explainText.getBytes(), k.getBytes());
+			String encryptedString = encode(encrypt);
+			// Cập nhật văn bản đã mã hóa
+			txtAEncypt.setText(encryptedString);
+
+		} else {
+			// Mã hóa văn bản rõ
+			encrypt = AES.encrypt(explainText.getBytes(), k.getBytes());
+			String encryptedString = encode(encrypt);
+			// Cập nhật văn bản đã mã hóa
+			txtAEncypt.setText(encryptedString);
+
+		}
+
+	}
+
+	// Hàm xử lý khi nhấn nút giải mã
+	private void xuLyGiaiMa() {
+		// Lấy văn bản đã mã hóa và khóa từ frame
+		String encryptedString = txtAEncypt.getText();
+		String k = new String(txtInputKey.getText());
+		k = addKey(k);
+		// Giải mã văn bản đã mã hóa
+		// Sử dụng Base64 để giải mã chuỗi đã mã hóa thành mảng byte để giải mã
+		byte[] encryptedBytes = decode(encryptedString);
+		decrypt = AES.decrypt(encryptedBytes, k.getBytes());
+		// Cập nhật văn bản đã giải mã
+		txtADecrypt.setText(String.valueOf(new String(decrypt, StandardCharsets.UTF_8)));
+	}
+
+	public static String addKey(String key) {
+		int length = key.length();
+		if (length < 16) {
+			for (int i = length; i < 16; i++) {
+				key += "a";
+			}
+		} else if (length > 16) {
+			key = key.substring(0, 16);
+		}
+		return key = key.substring(0, 16);
+	}
+
+	// Hàm Base64 để mã hóa và giải mã dữ liệu văn bản sang mảng byte và ngược lại
+	public static String encode(byte[] bytes) {
+		return Base64.getEncoder().encodeToString(bytes);
+	}
+
+	public static byte[] decode(String base64) {
+		return Base64.getDecoder().decode(base64);
 	}
 }
